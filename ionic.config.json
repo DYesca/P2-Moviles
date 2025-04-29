@@ -1,0 +1,7 @@
+{
+  "name": "P2-Moviles",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
