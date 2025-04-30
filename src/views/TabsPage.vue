@@ -52,7 +52,7 @@
     }
     
     // Suscribirse a cambios en el estado de autenticación
-    unsubscribe = AuthService.subscribe(({ isAuthenticated }) => {
+    unsubscribe = AuthService.subscribe(({ isAuthenticated }: { isAuthenticated: boolean }) => {
       if (!isAuthenticated) {
         console.log("Sesión cerrada, redirigiendo al login...");
         router.replace('/home');

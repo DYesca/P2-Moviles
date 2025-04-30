@@ -131,7 +131,7 @@ onMounted(async () => {
   }
   
   // Suscribirse a cambios
-  unsubscribe = AuthService.subscribe(({ isAuthenticated, userInfo, isLoading: loading }) => {
+  unsubscribe = AuthService.subscribe(({ isAuthenticated, userInfo, isLoading: loading }: { isAuthenticated: boolean; userInfo: { name: string }; isLoading: boolean }) => {
     console.log("Estado de autenticación actualizado:", isAuthenticated);
     isLoggedIn.value = isAuthenticated;
     userName.value = userInfo.name;
@@ -177,7 +177,7 @@ const handleLogin = async () => {
       // No necesitamos redirigir aquí, ya que AuthService notificará el cambio de estado
       // y el código de suscripción se encargará de la redirección
     } else {
-      showIonicAlert('Login Failed', error?.message || 'Please check your email and password.');
+      showIonicAlert('Login Failed', (error as { message?: string })?.message || 'Please check your email and password.');
     }
   } catch (error) {
     console.error('Login error:', error);
@@ -201,7 +201,7 @@ const handleRegister = async () => {
       showIonicAlert('Registro Completado ✅', 'Ahora puedes iniciar sesión.');
       toggleRegister();
     } else {
-      showIonicAlert('Registro Fallido', error?.message || 'Por favor intenta de nuevo.');
+      showIonicAlert('Registro Fallido', (error as { message?: string })?.message || 'Por favor intenta de nuevo.');
     }
   } catch (error) {
     showIonicAlert('Registro Fallido', 'Por favor intenta de nuevo.');

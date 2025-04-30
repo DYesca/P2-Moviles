@@ -108,17 +108,15 @@ onMounted(async () => {
   isLoggedIn.value = state.isAuthenticated.value;
   userName.value = state.userInfo.name;
   userEmail.value = state.userInfo.email;
-  userProjects.value = state.userProjects|| []; // Asignar proyectos del usuario
-  userTasks.value = state.userTasks || []; // Asignar tareas del usuario
+
   isLoading.value = state.isLoading.value;
   
   // Suscribirse a cambios
-  unsubscribe = AuthService.subscribe(({ isAuthenticated, userInfo, isLoading: loading }) => {
+  unsubscribe = AuthService.subscribe(({ isAuthenticated, userInfo, isLoading: loading }: { isAuthenticated: boolean; userInfo: { name: string; email: string; projects?: any[]; tasks?: any[] }; isLoading: boolean }) => {
     isLoggedIn.value = isAuthenticated;
     userName.value = userInfo.name;
     userEmail.value = userInfo.email;
-    userProjects.value = userInfo.projects || []; // Actualizar proyectos del usuario
-    userTasks.value = userInfo.tasks || []; // Actualizar tareas del usuario
+
     isLoading.value = loading;  
   });
 });

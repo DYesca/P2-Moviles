@@ -47,7 +47,12 @@
   
   
   // Variable reactiva para los proyectos
-  const projects = ref([]);
+  interface Project {
+    id: number;
+    name: string;
+  }
+
+  const projects = ref<Project[]>([]);
   
   // Función para obtener los proyectos
   const fetchProjects = async () => {

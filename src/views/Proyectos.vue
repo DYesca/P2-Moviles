@@ -1,6 +1,6 @@
 <template>
     <ion-page>
-        <ion-header translucent="true">
+        <ion-header :translucent="true">
             <ion-toolbar>
                 <ion-title>Tareas del Proyecto</ion-title>
             </ion-toolbar>
@@ -17,7 +17,7 @@
                 </ion-item>
                 <ion-item v-for="task in tasks" :key="task.id" button @click="editTask(task)">
                     <ion-label>
-                        <h2>{{ task.name }}</h2>
+                        <h2>{{ task.name}}</h2>
                         <p>{{ task.description }}</p>
                         <p><strong>Status:</strong> {{ task.status }}</p>
                     </ion-label>
@@ -89,7 +89,14 @@ const route = useRoute();
 const projectId = route.params.id;
 
 // Variables reactivas
-const tasks = ref([]); // Lista de tareas
+interface Task {
+    id: number;
+    name: string;
+    description: string;
+    status: string;
+}
+
+const tasks = ref<Task[]>([]); // Lista de tareas
 const token = ref('');
 const showTaskModal = ref(false);
 const editingTask = ref<any>(null); // Tarea en edición, nulo si se crea una nueva
@@ -119,7 +126,7 @@ function notify(header: string, message: string) {
 // Obtener el token y las tareas al montar el componente
 onMounted(async () => {
     const { value: storedToken } = await Preferences.get({ key: 'user_token' });
-    token.value = storedToken;
+    token.value = storedToken || '';
     await fetchTasks();
 });
 
